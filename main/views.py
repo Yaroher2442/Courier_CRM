@@ -18,11 +18,13 @@ def products(request):
     if request.method == 'POST':
         form = search(request.POST)
         if form.is_valid():
-            context = {'data': [Products.objects.get(hash=form.cleaned_data['hash'])], 'form': search()}
-            return render(request, 'main/admin/products.html', context=context)
-        else:
-            return HttpResponseRedirect('/products')
-            
+            print(form.cleaned_data)
+            if form.cleaned_data != '':
+                context = {'data': [Products.objects.get(hash=form.cleaned_data['hash'])], 'form': search()}
+                return render(request, 'main/admin/products.html', context=context)
+            else:
+                return HttpResponseRedirect('/products')
+
     else:
         context = {'data': Products.objects.all(), 'form': search()}
         return render(request, 'main/admin/products.html', context=context)
@@ -32,16 +34,21 @@ def delivery(request):
     context = {'data': Delivery.objects.all()}
     return render(request, 'main/admin/delivery.html', context=context)
 
+
 def d_in_procces(request):
     context = {'data': Delivery.objects.filter(status='at_the_courier')}
     return render(request, 'main/admin/delivery.html', context=context)
+
+
 def d_allready(request):
     context = {'data': Delivery.objects.filter(status='already_delivered')}
     return render(request, 'main/admin/delivery.html', context=context)
 
-def delivery_dell(request,d_id):
-    d=Delivery.objects.get(id=d_id).delete()
+
+def delivery_dell(request, d_id):
+    d = Delivery.objects.get(id=d_id).delete()
     return HttpResponseRedirect('/delivery')
+
 
 @csrf_exempt
 def generate_order(request):
@@ -49,8 +56,8 @@ def generate_order(request):
         form = generate(request.POST)
         if form.is_valid():
             PR = Products.objects.all()
-            prods=[]
-            rang=random.randrange(6)
+            prods = []
+            rang = random.randrange(6)
             for ran in range(rang):
                 prods.append(Products.objects.get(id=random.randint(1, len(PR))).hash)
             Delivery(**form.cleaned_data, status='ready_for_delivery', products=prods).save()
@@ -113,7 +120,7 @@ def cour_already(request, cour_id, d_id):
     dell.save()
     cour = Couriers.objects.get(number=cour_id)
     cour.is_busy = False
-    cour.way=''
+    cour.way = ''
     cour.save()
     return HttpResponseRedirect(f'/cour/{cour_id}')
 
