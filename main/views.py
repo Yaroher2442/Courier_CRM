@@ -18,8 +18,11 @@ def products(request):
     if request.method == 'POST':
         form = search(request.POST)
         if form.is_valid():
-            context = {'data': [Products.objects.get(hash=form.cleaned_data['hash'])]}
+            context = {'data': [Products.objects.get(hash=form.cleaned_data['hash'])], 'form': search()}
             return render(request, 'main/admin/products.html', context=context)
+        else:
+            return HttpResponseRedirect('/products')
+            
     else:
         context = {'data': Products.objects.all(), 'form': search()}
         return render(request, 'main/admin/products.html', context=context)
