@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<main class="ms-sm-auto px-md-4">
+    <h2>Delivery you can take</h2>
+    <h3>You number is {{cour_number}}</h3>
+    <div class="table-responsive">
+        <div class="text-center bg-light">
+            <table class="table table-light">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Prodocts to delivery</th>
+                    <th scope="col">client</th>
+                    <th scope="col">addres</th>
+                    <th scope="col">date_time</th>
+                    <th scope="col">status</th>
+                    <th scope="col">Take button</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for item in data%}
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <td>
+                        {{item.products}}
+                    </td>
+                    <td>{{item.client}}</td>
+                    <td>{{item.addres}}</td>
+                    <td>{{item.date_time}}</td>
+                    <td>{{item.status}}</td>
+                    <td><a type="button" class="btn btn-primary" href="/cour/{{cour_number}}/{{item.id}}">Take</a></td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

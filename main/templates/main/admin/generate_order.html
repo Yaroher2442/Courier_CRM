@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+{% include "./helpers/header.html" %}
+<main class="ms-sm-auto px-md-4">
+    <h2>Form to add Delivery</h2>
+    <form method=post class="needs-validation" novalidate="" action="/generate_order">
+        <div class="mb-3">
+            <label>client</label>
+            {{generate.client}}
+        </div>
+        <div class="mb-3">
+            <label>addres</label>
+            {{generate.addres}}
+        </div>
+        <div class="mb-3">
+            <label>date_time</label>
+            {{generate.date_time}}
+        </div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Generate</button>
+    </form>
+
+</main>
+</body>
+</html>
+

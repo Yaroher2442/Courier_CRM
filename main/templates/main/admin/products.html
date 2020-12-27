@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+{% include "./helpers/header.html" %}
+{% load static %}
+<main class="ms-sm-auto px-md-4">
+    <h2>Table of Products information</h2>
+    <div class="input-group">
+        <form method=post class="needs-validation" novalidate="" action="/products">
+            <div class="mb-3">
+                <label>hash key</label>
+                {{form.hash}}
+                <button class="btn btn-primary " type="submit">search</button>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <div class="text-center bg-light col-auto">
+            <table class="table  table-bordered">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">name</th>
+                    <th scope="col">price</th>
+                    <th scope="col">stock balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for item in data%}
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <td>
+                        <img src="/static/main/imgs/{{item.hash}}.jpeg" alt={{item.hash}}>
+                    </td>
+                    <td>
+                        <p>{{item.name}}</p>
+
+                        <p><a href='{{item.href}}'>Ссылка на товар</a></p>
+                        <p>hash: {{item.hash}}</p>
+                    </td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.stock_balance}}</td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>
+
