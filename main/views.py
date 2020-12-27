@@ -20,8 +20,13 @@ def products(request):
         if form.is_valid():
             print(form.cleaned_data)
             if form.cleaned_data['hash'] != '':
-                context = {'data': [Products.objects.get(hash=form.cleaned_data['hash'])], 'form': search()}
-                return render(request, 'main/admin/products.html', context=context)
+                try:
+                    data=[Products.objects.get(hash=form.cleaned_data['hash'])]
+                    context = {'data': [Products.objects.get(hash=form.cleaned_data['hash'])], 'form': search()}
+                    return render(request, 'main/admin/products.html', context=context)
+                except:
+                    return HttpResponseRedirect('/products')
+
             else:
                 return HttpResponseRedirect('/products')
 
